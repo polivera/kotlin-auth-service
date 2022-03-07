@@ -1,8 +1,14 @@
 package com.caveowl.plugins
 
-import io.ktor.application.*
+import com.caveowl.models.daos.UserDao
 import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.transactions.transaction
 
-fun Application.configureTestDatabase() {
-    Database.connect("jdbc:h2:mem:regular", "org.h2.Driver")
+fun configureTestDatabase() {
+    Database.connect("jdbc:h2:mem:regular;DB_CLOSE_DELAY=-1;", "org.h2.Driver")
+
+    transaction {
+        SchemaUtils.create(UserDao)
+    }
 }

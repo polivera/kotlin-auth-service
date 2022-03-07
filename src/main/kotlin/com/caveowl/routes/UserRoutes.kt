@@ -1,10 +1,10 @@
 package com.caveowl.routes
 
-import com.caveowl.features.user.CreateUserPayload
 import com.caveowl.features.user.UserHandler
 import com.caveowl.repositories.UserRepository
 import io.ktor.application.*
 import io.ktor.request.*
+import io.ktor.response.*
 import io.ktor.routing.*
 
 fun Application.userRoutes() {
@@ -16,7 +16,8 @@ fun Application.userRoutes() {
     routing {
         route("/user") {
             post {
-                handler.createUser(call.receive())
+                val response = handler.createUser(call.receive())
+                call.respond(response.status, response.payload)
             }
         }
     }

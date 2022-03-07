@@ -14,7 +14,7 @@ fun Application.authenticationRoutes() {
         route("/auth") {
             post("/login") {
                 val response = handler.login(call.receive())
-                call.respond(response.status, response.message)
+                call.respond(response.status, response.payload)
             }
         }
     }
