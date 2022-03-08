@@ -1,7 +1,7 @@
 package com.caveowl.plugins
 
-
 import com.caveowl.models.daos.UserDao
+import com.caveowl.models.daos.UserVerificationCodeDao
 import io.ktor.application.*
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
@@ -24,6 +24,9 @@ fun Application.configureDatabase() {
     )
 
     transaction {
-        SchemaUtils.create(UserDao)
+        SchemaUtils.create(
+            UserDao,
+            UserVerificationCodeDao
+        )
     }
 }

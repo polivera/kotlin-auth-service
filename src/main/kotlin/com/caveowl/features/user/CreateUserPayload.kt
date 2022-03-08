@@ -5,7 +5,7 @@ import com.caveowl.features.common.Constants
 import kotlinx.serialization.Serializable
 
 @Serializable
-class CreateUserPayload(
+data class CreateUserPayload(
     val email: String,
     val password: String
 ) : BasePayload() {

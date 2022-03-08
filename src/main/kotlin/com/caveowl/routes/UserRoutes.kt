@@ -14,9 +14,14 @@ fun Application.userRoutes() {
     )
 
     routing {
-        route("/user") {
+        route("api/v1/user") {
             post {
                 val response = handler.createUser(call.receive())
+                call.respond(response.status, response.payload)
+            }
+
+            post("/validate") {
+                val response = handler.validateUser(call.receive())
                 call.respond(response.status, response.payload)
             }
         }

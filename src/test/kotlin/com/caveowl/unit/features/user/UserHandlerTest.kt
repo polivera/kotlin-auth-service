@@ -1,6 +1,8 @@
-package com.caveowl.features.user
+package com.caveowl.unit.features.user
 
 import com.caveowl.features.common.ErrorResponse
+import com.caveowl.features.user.CreateUserPayload
+import com.caveowl.features.user.UserHandler
 import com.caveowl.repositories.UserRepository
 import io.ktor.http.*
 import org.junit.jupiter.api.Assertions.*

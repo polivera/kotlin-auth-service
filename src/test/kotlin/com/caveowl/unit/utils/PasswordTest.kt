@@ -1,5 +1,6 @@
-package com.caveowl.utils
+package com.caveowl.unit.utils
 
+import com.caveowl.utils.Password
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue

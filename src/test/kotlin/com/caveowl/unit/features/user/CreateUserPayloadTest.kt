@@ -1,5 +1,6 @@
-package com.caveowl.features.user
+package com.caveowl.unit.features.user
 
+import com.caveowl.features.user.CreateUserPayload
 import org.junit.Assert
 import kotlin.test.Test
 

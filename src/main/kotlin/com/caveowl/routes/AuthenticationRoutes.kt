@@ -11,7 +11,7 @@ fun Application.authenticationRoutes() {
     val handler = AuthenticationHandler()
 
     routing {
-        route("/auth") {
+        route("/api/v1/auth") {
             post("/login") {
                 val response = handler.login(call.receive())
                 call.respond(response.status, response.payload)

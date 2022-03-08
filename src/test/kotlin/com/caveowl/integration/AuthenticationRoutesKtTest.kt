@@ -1,8 +1,9 @@
-package com.caveowl.routes
+package com.caveowl.integration
 
 import com.caveowl.features.authentication.LoginPayload
 import com.caveowl.features.common.ErrorResponse
 import com.caveowl.plugins.configureSerialization
+import com.caveowl.routes.authenticationRoutes
 import io.ktor.http.*
 import io.ktor.server.testing.*
 import kotlinx.serialization.encodeToString

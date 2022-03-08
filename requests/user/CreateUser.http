@@ -1,0 +1,17 @@
+### Creating user with invalid email and invalid password
+POST http://localhost:8080/api/v1/user
+Content-Type: application/json
+
+{
+  "email": "foo",
+  "password": "invalidPass"
+}
+
+### Create user with valid email and password
+POST http://localhost:8080/api/v1/user
+Content-Type: application/json
+
+{
+  "email": "test@test.com",
+  "password": "Test.123!"
+}

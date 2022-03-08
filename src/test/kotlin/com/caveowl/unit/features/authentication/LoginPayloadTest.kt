@@ -1,5 +1,6 @@
-package com.caveowl.features.authentication
+package com.caveowl.unit.features.authentication
 
+import com.caveowl.features.authentication.LoginPayload
 import org.junit.Assert
 import kotlin.test.Test
 

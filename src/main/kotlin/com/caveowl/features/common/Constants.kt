@@ -1,7 +1,5 @@
 package com.caveowl.features.common
 
-import org.intellij.lang.annotations.Language
-
 object Constants {
     object PATTERNS {
         // TODO - make a better pattern
