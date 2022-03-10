@@ -1,7 +1,7 @@
 package com.caveowl.unit.features.user
 
-import com.caveowl.features.user.UserHandler.Companion.VERIFICATION_CODE_SIZE
-import com.caveowl.features.user.ValidateUserPayload
+import com.caveowl.features.user.VerifyUserPayload
+import com.caveowl.models.daos.UserVerificationCodeDao.VERIFICATION_CODE_SIZE
 import com.caveowl.utils.getRandomString
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -15,48 +15,48 @@ internal class ValidateUserPayloadTest {
     @Test
     fun `Validate user payload empty uuid`() {
         // Mock payload
-        val payload = ValidateUserPayload("", validCode)
+        val payload = VerifyUserPayload("", validCode)
         // Validate
         payload.validate()
         //
         assertFalse(payload.isValid)
         assertEquals(1, payload.errors.size)
-        assertEquals("user id is required", payload.errors[ValidateUserPayload.FIELD_USER_ID])
+        assertEquals("user id is required", payload.errors[VerifyUserPayload.FIELD_USER_ID])
     }
 
     @Test
     fun `Validate user payload invalid uuid`() {
         // Mock payload
-        val payload = ValidateUserPayload("invaliduuid", validCode)
+        val payload = VerifyUserPayload("invaliduuid", validCode)
         // Validate
         payload.validate()
 
         assertFalse(payload.isValid)
         assertEquals(1, payload.errors.size)
-        assertEquals("invalid user id", payload.errors[ValidateUserPayload.FIELD_USER_ID])
+        assertEquals("invalid user id", payload.errors[VerifyUserPayload.FIELD_USER_ID])
     }
 
     @Test
-    fun `Validate user payload empty validation code`() {
+    fun `Validate user payload empty verification code`() {
         // Mock payload
-        val payload = ValidateUserPayload(validUUID, "")
+        val payload = VerifyUserPayload(validUUID, "")
         // Validate
         payload.validate()
 
         assertFalse(payload.isValid)
         assertEquals(1, payload.errors.size)
-        assertEquals("validation code is required", payload.errors[ValidateUserPayload.FIELD_VALIDATION_CODE])
+        assertEquals("verification code is required", payload.errors[VerifyUserPayload.FIELD_VERIFICATION_CODE])
     }
 
     @Test
-    fun `Validate user payload invalid validation code`() {
+    fun `Validate user payload invalid verification code`() {
         // Mock payload
-        val payload = ValidateUserPayload(validUUID, "12312039881092831")
+        val payload = VerifyUserPayload(validUUID, "12312039881092831")
         // Validate
         payload.validate()
 
         assertFalse(payload.isValid)
         assertEquals(1, payload.errors.size)
-        assertEquals("invalid validation code", payload.errors[ValidateUserPayload.FIELD_VALIDATION_CODE])
+        assertEquals("invalid verification code", payload.errors[VerifyUserPayload.FIELD_VERIFICATION_CODE])
     }
 }

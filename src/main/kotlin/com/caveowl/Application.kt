@@ -1,11 +1,13 @@
 package com.caveowl
 
-import io.ktor.server.engine.*
-import io.ktor.server.netty.*
-import com.caveowl.plugins.*
+import com.caveowl.plugins.configureDatabase
+import com.caveowl.plugins.configureRouting
+import com.caveowl.plugins.configureSerialization
 import com.typesafe.config.ConfigFactory
 import io.ktor.application.*
 import io.ktor.config.*
+import io.ktor.server.engine.*
+import io.ktor.server.netty.*
 
 fun main() {
     embeddedServer(Netty, environment = applicationEngineEnvironment {

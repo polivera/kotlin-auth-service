@@ -20,7 +20,7 @@ fun Application.userRoutes() {
                 call.respond(response.status, response.payload)
             }
 
-            post("/validate") {
+            post("/verify") {
                 val response = handler.validateUser(call.receive())
                 call.respond(response.status, response.payload)
             }

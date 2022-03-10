@@ -39,7 +39,7 @@ class Password(
     /**
      * Validate plain text password against the hashed password
      */
-    fun isValid(fullPassword: String): Boolean {
+    fun matchPasswordHash(fullPassword: String): Boolean {
         var ind = 1
         var isValidPassword = false
 

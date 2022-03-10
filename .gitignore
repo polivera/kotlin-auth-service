@@ -27,3 +27,8 @@ hs_err_pid*
 build
 gradle/wrapper/*
 !gradle/wrapper/gradle-wrapper.properties
+
+# App specific
+src/main/resources/jwks.json
+src/main/resources/jwtRS256.key
+src/main/resources/jwtRS256.pub

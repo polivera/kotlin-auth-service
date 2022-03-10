@@ -3,6 +3,7 @@ package com.caveowl.repositories
 import com.caveowl.exception.DuplicateUniqueKeyException
 import com.caveowl.features.user.CreateUserPayload
 import com.caveowl.models.UserStatus
+import com.caveowl.models.daos.UserDao
 import com.caveowl.models.daos.UserVerificationCodeDao
 import com.caveowl.models.entities.UserEntity
 import com.caveowl.models.entities.UserVerificationCodeEntity
@@ -32,10 +33,24 @@ class UserRepository {
         }
     }
 
+    /**
+     * Update user status
+     */
     fun updateUserStatus(userId: UUID, userStatus: UserStatus) {
         return try {
             transaction {
-                UserEntity.findById(userId)?.status = UserStatus.Verified.id
+                UserEntity.findById(userId)?.status = userStatus.id
+            }
+        } catch (e: ExposedSQLException) {
+            // todo log
+            throw e
+        }
+    }
+
+    fun getUserByEmail(emailAddress: String): UserEntity? {
+        return try {
+            transaction {
+                UserEntity.find { UserDao.email eq emailAddress }.firstOrNull()
             }
         } catch (e: ExposedSQLException) {
             // todo log
@@ -76,4 +91,12 @@ class UserRepository {
         }
     }
 
+    /**
+     * Delete user verification code
+     */
+    fun removeVerificationCode(userVerificationCodeEntity: UserVerificationCodeEntity) {
+        return transaction {
+            userVerificationCodeEntity.delete()
+        }
+    }
 }

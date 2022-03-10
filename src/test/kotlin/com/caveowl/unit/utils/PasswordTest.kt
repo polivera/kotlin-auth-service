@@ -20,7 +20,7 @@ internal class PasswordTest {
         val pass = Password("Test.123!")
         val hashedPassword = pass.hash()
 
-        assertTrue(pass.isValid(hashedPassword))
+        assertTrue(pass.matchPasswordHash(hashedPassword))
     }
 
     @Test
@@ -36,7 +36,7 @@ internal class PasswordTest {
             val pass = Password(randomString)
             val hashedPassword = pass.hash()
 
-            assertTrue(pass.isValid(hashedPassword), "Unable to validate password $randomString")
+            assertTrue(pass.matchPasswordHash(hashedPassword), "Unable to validate password $randomString")
         }
     }
 }

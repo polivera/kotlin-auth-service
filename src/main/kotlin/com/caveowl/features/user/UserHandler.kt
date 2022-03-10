@@ -4,6 +4,7 @@ import com.caveowl.exception.DuplicateUniqueKeyException
 import com.caveowl.features.common.ErrorResponse
 import com.caveowl.features.common.Response
 import com.caveowl.models.UserStatus
+import com.caveowl.models.daos.UserVerificationCodeDao.VERIFICATION_CODE_SIZE
 import com.caveowl.repositories.UserRepository
 import com.caveowl.utils.Password
 import com.caveowl.utils.getRandomString
@@ -13,9 +14,6 @@ import java.util.*
 class UserHandler(
     private val userRepo: UserRepository,
 ) {
-    companion object {
-        const val VERIFICATION_CODE_SIZE = 128
-    }
 
     /**
      * Create new user handler
@@ -62,31 +60,32 @@ class UserHandler(
     }
 
     /**
-     * Validate the user with validation code
+     * Validate the user with verification code
      */
-    fun validateUser(validateUserPayload: ValidateUserPayload): Response {
-        validateUserPayload.validate()
+    fun validateUser(verifyUserPayload: VerifyUserPayload): Response {
+        verifyUserPayload.validate()
 
-        if (!validateUserPayload.isValid) {
+        if (!verifyUserPayload.isValid) {
             return Response(
-                ErrorResponse("errors on validate user payload", validateUserPayload.errors),
+                ErrorResponse("errors on verification user payload", verifyUserPayload.errors),
                 HttpStatusCode.BadRequest
             )
         }
 
-        userRepo.getUserVerificationCode(
-            UUID.fromString(validateUserPayload.userId),
-            validateUserPayload.validationCode
+        val code = userRepo.getUserVerificationCode(
+            UUID.fromString(verifyUserPayload.userId),
+            verifyUserPayload.verificationCode
         ) ?: return Response(
             ErrorResponse(
-                "errors on validate user payload",
-                mapOf("reason" to "user/validation code does not exist")
+                "errors on verification user payload",
+                mapOf("reason" to "user/verification code does not exist")
             ),
             HttpStatusCode.BadRequest
         )
 
+        userRepo.removeVerificationCode(code)
+        userRepo.updateUserStatus(UUID.fromString(verifyUserPayload.userId), UserStatus.Verified)
 
-
-        return Response("oaisjdoasijd", HttpStatusCode.Accepted)
+        return Response("", HttpStatusCode.OK)
     }
 }

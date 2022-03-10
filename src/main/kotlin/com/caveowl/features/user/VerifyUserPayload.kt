@@ -1,18 +1,18 @@
 package com.caveowl.features.user
 
 import com.caveowl.features.common.BasePayload
-import com.caveowl.features.user.UserHandler.Companion.VERIFICATION_CODE_SIZE
+import com.caveowl.models.daos.UserVerificationCodeDao.VERIFICATION_CODE_SIZE
 import kotlinx.serialization.Serializable
 import java.util.UUID
 
 @Serializable
-data class ValidateUserPayload(
+data class VerifyUserPayload(
     val userId: String,
-    val validationCode: String,
+    val verificationCode: String,
 ) : BasePayload() {
     companion object {
         const val FIELD_USER_ID = "userId"
-        const val FIELD_VALIDATION_CODE = "validationCode"
+        const val FIELD_VERIFICATION_CODE = "verificationCode"
     }
 
     override fun validate() {
@@ -25,10 +25,10 @@ data class ValidateUserPayload(
                 this.errors[FIELD_USER_ID] = "invalid user id"
             }
         }
-        if (this.validationCode.isEmpty()) {
-            this.errors[FIELD_VALIDATION_CODE] = "validation code is required"
-        } else if (this.validationCode.length < VERIFICATION_CODE_SIZE) {
-            this.errors[FIELD_VALIDATION_CODE] = "invalid validation code"
+        if (this.verificationCode.isEmpty()) {
+            this.errors[FIELD_VERIFICATION_CODE] = "verification code is required"
+        } else if (this.verificationCode.length < VERIFICATION_CODE_SIZE) {
+            this.errors[FIELD_VERIFICATION_CODE] = "invalid verification code"
         }
     }
 }
